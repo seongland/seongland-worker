@@ -1,0 +1,13 @@
+account_id = "b709a5422126605a7ae7dfc3e6237505"
+type = "javascript"
+workers_dev = true
+
+[env.production]
+name = "next-proxy"
+route = "https://next.seongland.com/*"
+zone_id = "1a9167d232d4c3b789e9d0c7f0e1ed23"
+
+[build]
+command = "pnpm i && pnpm build"
+[build.upload]
+format = "service-worker"
