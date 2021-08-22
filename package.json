@@ -9,7 +9,7 @@
     "format": "prettier --write  '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "lint": "eslint --max-warnings=0 src && prettier --check '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'"
   },
-  "author": "author",
+  "author": "seonglae <sungle3737@gmail.com>",
   "eslintConfig": {
     "root": true,
     "extends": [
