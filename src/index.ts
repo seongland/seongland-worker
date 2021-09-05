@@ -39,7 +39,8 @@ async function fetchAndApply(request: Request) {
     method: request.method,
   })
   if (response.redirected) {
-    console.log(response)
+    console.log(request)
+    const url = response.url.replaceAll(ANOTHER, MY_DOMAIN)
     return Response.redirect(url, 301)
   }
   response = new Response(response.body, response)
