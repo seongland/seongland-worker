@@ -29,8 +29,6 @@ function handleOptions(request: Request) {
 
 async function fetchAndApply(request: Request) {
   if (request.method === 'OPTIONS') return handleOptions(request)
-  request = new Request(request)
-  request.headers.set('Host', MY_DOMAIN)
 
   let url = new URL(request.url)
   if (url.hostname === MY_DOMAIN) url.hostname = ANOTHER
@@ -41,7 +39,7 @@ async function fetchAndApply(request: Request) {
     method: request.method,
   })
   if (response.redirected) {
-    const url = response.url.replaceAll(ANOTHER, MY_DOMAIN)
+    console.log(response)
     return Response.redirect(url, 301)
   }
   response = new Response(response.body, response)
