@@ -38,9 +38,7 @@ async function fetchAndApply(request: Request) {
     headers: request.headers,
     method: request.method,
   })
-  response = new Response(response.body, response)
   response.headers.delete('Content-Security-Policy')
   response.headers.delete('X-Content-Security-Policy')
-
   return response
 }
