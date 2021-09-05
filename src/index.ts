@@ -38,35 +38,5 @@ async function fetchAndApply(request: Request) {
     headers: request.headers,
     method: request.method,
   })
-  response = new Response(response.body, response)
-  response.headers.delete('Content-Security-Policy')
-  response.headers.delete('X-Content-Security-Policy')
-
-  return appendJavascript(response)
-}
-
-class MetaRewriter {
-  element(element: HTMLElement) {
-    if (element.getAttribute('property') === 'og:url' || element.getAttribute('name') === 'twitter:url')
-      element.setAttribute('content', MY_DOMAIN)
-    if (element.getAttribute('name') === 'apple-itunes-app') element.remove()
-  }
-}
-
-class HeadRewriter {
-  element() {}
-}
-
-class BodyRewriter {
-  constructor() {}
-  element() {}
-}
-
-async function appendJavascript(res: Response) {
-  return new HTMLRewriter()
-    .on('title', new MetaRewriter())
-    .on('meta', new MetaRewriter())
-    .on('head', new HeadRewriter())
-    .on('body', new BodyRewriter())
-    .transform(res)
+  return response
 }
