@@ -38,7 +38,7 @@ async function fetchAndApply(request: Request) {
     headers: request.headers,
     method: request.method,
   })
-  url = new URL(response.url)
+  url = new URL(response.url.toString())
   if (url.hostname === MY_DOMAIN) url.hostname = ANOTHER
   if (response.redirected) return Response.redirect(url, 301)
   response = new Response(response.body, response)
