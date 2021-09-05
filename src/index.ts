@@ -29,7 +29,7 @@ function handleOptions(request: Request) {
 
 async function fetchAndApply(request: Request) {
   if (request.method === 'OPTIONS') return handleOptions(request)
-  request = request.clone()
+  request = new Request(request)
   request.headers.set('Host', MY_DOMAIN)
 
   let url = new URL(request.url)
