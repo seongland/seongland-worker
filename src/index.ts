@@ -31,7 +31,7 @@ async function fetchAndApply(request: Request) {
   if (request.method === 'OPTIONS') return handleOptions(request)
 
   let url = new URL(request.url)
-  url.hostname = ANOTHER
+  if (url.hostname === MY_DOMAIN) url.hostname = ANOTHER
 
   let response = await fetch(url.toString(), {
     body: request.body,
