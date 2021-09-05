@@ -3,7 +3,7 @@ type = "javascript"
 workers_dev = true
 
 [env.production]
-name = "next-proxy"
-route = "https://next.seongland.com/*"
+name = "accountland"
+route = "https://account.seongland.com/*"
 zone_id = "1a9167d232d4c3b789e9d0c7f0e1ed23"
 
