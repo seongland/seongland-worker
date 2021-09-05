@@ -38,8 +38,9 @@ async function fetchAndApply(request: Request) {
     headers: request.headers,
     method: request.method,
   })
-  console.log(response)
-  if (response.redirected) return Response.redirect(response.url, 301)
+  url = new URL(response.url)
+  if (url.hostname === MY_DOMAIN) url.hostname = ANOTHER
+  if (response.redirected) return Response.redirect(url, 301)
   response = new Response(response.body, response)
   response.headers.delete('Content-Security-Policy')
   response.headers.delete('X-Content-Security-Policy')
