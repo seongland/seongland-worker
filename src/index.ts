@@ -33,40 +33,14 @@ async function fetchAndApply(request: Request) {
   let url = new URL(request.url)
   url.hostname = ANOTHER
 
-  let response
-  if (url.pathname.endsWith('js')) {
-    response = await fetch(url.toString())
-    let body = await response.text()
-    response = new Response(body.replace(String.raw`/${ANOTHER}/g`, MY_DOMAIN), response)
-    response.headers.set('Content-Type', 'application/x-javascript')
-    return response
-  } else if (
-    url.pathname.startsWith('/api') &&
-    !url.pathname.endsWith('robots.txt') &&
-    !url.pathname.endsWith('sitemap.xml')
-  ) {
-    response = await fetch(url.toString(), {
-      body: request.body,
-      headers: {
-        'content-type': 'application/json;charset=UTF-8',
-        'user-agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
-      },
-      method: 'POST',
-    })
-    response = new Response(response.body, response)
-    response.headers.set('Access-Control-Allow-Origin', '*')
-    return response
-  } else {
-    response = await fetch(url.toString(), {
-      body: request.body,
-      headers: request.headers,
-      method: request.method,
-    })
-    response = new Response(response.body, response)
-    response.headers.delete('Content-Security-Policy')
-    response.headers.delete('X-Content-Security-Policy')
-  }
+  let response = await fetch(url.toString(), {
+    body: request.body,
+    headers: request.headers,
+    method: request.method,
+  })
+  response = new Response(response.body, response)
+  response.headers.delete('Content-Security-Policy')
+  response.headers.delete('X-Content-Security-Policy')
 
   return appendJavascript(response)
 }
