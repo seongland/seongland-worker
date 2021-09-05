@@ -29,6 +29,8 @@ function handleOptions(request: Request) {
 
 async function fetchAndApply(request: Request) {
   if (request.method === 'OPTIONS') return handleOptions(request)
+  request = request.clone()
+  request.headers.set('Host', MY_DOMAIN)
 
   let url = new URL(request.url)
   if (url.hostname === MY_DOMAIN) url.hostname = ANOTHER
