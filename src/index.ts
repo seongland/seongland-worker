@@ -31,14 +31,14 @@ async function fetchAndApply(request: Request) {
   if (request.method === 'OPTIONS') return handleOptions(request)
 
   let url = new URL(request.url)
-  url.hostname = ANOTHER
+  if (url.hostname === MY_DOMAIN) url.hostname = ANOTHER
 
   let response = await fetch(url.toString(), {
     body: request.body,
     headers: request.headers,
     method: request.method,
   })
-  console.log(response.redirected)
+  console.log(response)
   if (response.redirected) Response.redirect(response.url, 301)
   response = new Response(response.body, response)
   response.headers.delete('Content-Security-Policy')
