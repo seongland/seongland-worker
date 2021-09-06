@@ -42,8 +42,8 @@ async function fetchAndApply(request: Request) {
     console.log(response)
     const url = response.url.replaceAll(ANOTHER, MY_DOMAIN)
     response = Response.redirect(url, 301)
-  } else response = new Response(response.body, response)
-
+  }
+  response = new Response(response.body, response)
   response.headers.delete('Content-Security-Policy')
   response.headers.delete('X-Content-Security-Policy')
 
